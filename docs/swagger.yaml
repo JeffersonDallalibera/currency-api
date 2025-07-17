@@ -1,0 +1,61 @@
+basePath: /
+definitions:
+  model.ConvertResponse:
+    properties:
+      amount:
+        type: number
+      converted:
+        type: number
+      from:
+        type: string
+      rate:
+        type: number
+      to:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    name: Jefferson Dallalibera
+    url: https://github.com/JeffersonDallalibera
+  description: API para converter valores entre moedas usando exchangerate.host
+  title: API de Cotação de Moedas
+  version: "1.0"
+paths:
+  /convert:
+    get:
+      consumes:
+      - application/json
+      description: Recebe moeda de origem, destino e valor. Retorna valor convertido.
+      parameters:
+      - description: 'Moeda de origem (ex: USD)'
+        in: query
+        name: from
+        required: true
+        type: string
+      - description: 'Moeda de destino (ex: BRL)'
+        in: query
+        name: to
+        required: true
+        type: string
+      - description: Valor a ser convertido
+        in: query
+        name: amount
+        type: number
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ConvertResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Converte valores entre moedas
+      tags:
+      - Conversão
+swagger: "2.0"

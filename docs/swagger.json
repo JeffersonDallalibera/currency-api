@@ -1,0 +1,92 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API para converter valores entre moedas usando exchangerate.host",
+        "title": "API de Cotação de Moedas",
+        "contact": {
+            "name": "Jefferson Dallalibera",
+            "url": "https://github.com/JeffersonDallalibera"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/convert": {
+            "get": {
+                "description": "Recebe moeda de origem, destino e valor. Retorna valor convertido.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Conversão"
+                ],
+                "summary": "Converte valores entre moedas",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Moeda de origem (ex: USD)",
+                        "name": "from",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Moeda de destino (ex: BRL)",
+                        "name": "to",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "number",
+                        "description": "Valor a ser convertido",
+                        "name": "amount",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ConvertResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.ConvertResponse": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number"
+                },
+                "converted": {
+                    "type": "number"
+                },
+                "from": {
+                    "type": "string"
+                },
+                "rate": {
+                    "type": "number"
+                },
+                "to": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
